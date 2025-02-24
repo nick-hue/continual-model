@@ -1,0 +1,14 @@
+[project]
+name = "my_method"
+version = "0.1"
+dependencies = ["nerfstudio",]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["my_method*"]
+
+[project.entry-points.'nerfstudio.method_configs']
+my-method = 'my_method.my_method:MyMethod'
