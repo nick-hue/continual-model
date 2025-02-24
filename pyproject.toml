@@ -11,4 +11,4 @@ build-backend = "setuptools.build_meta"
 include = ["my_method*"]
 
 [project.entry-points.'nerfstudio.method_configs']
-my-method = 'my_method.my_method:MyMethod'
+my-method = 'my_method.my_method_config:MyMethod'

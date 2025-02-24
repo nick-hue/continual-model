@@ -13,17 +13,24 @@ from nerfstudio.pipelines.base_pipeline import (
     VanillaPipelineConfig,
 )
 
+from my_method.my_method import MyMethodModel, MyMethodModelConfig
+from my_method.data.my_method_datamanager import (
+    MyMethodDataManager,
+    MyMethodDataManagerConfig,
+)
+
+
 @dataclass
 class MyMethodPipelineConfig(VanillaPipelineConfig):
     """Configuration for pipeline instantiation"""
 
     _target: Type = field(default_factory=lambda: MyMethodPipeline)
     """target class to instantiate"""
-    datamanager: LERFDataManagerConfig = LERFDataManagerConfig()
+    datamanager: MyMethodDataManagerConfig = MyMethodDataManagerConfig()
     """specifies the datamanager config"""
-    model: ModelConfig = LERFModelConfig()
+    model: ModelConfig = MyMethodModelConfig()
     """specifies the model config"""
-    network: BaseImageEncoderConfig = BaseImageEncoderConfig()
+    # network: BaseImageEncoderConfig = BaseImageEncoderConfig()
     """specifies the vision-language network config"""
 
 
@@ -41,9 +48,9 @@ class MyMethodPipeline(VanillaPipeline):
         self.config = config
         self.test_mode = test_mode
 
-        self.image_encoder: BaseImageEncoder = config.network.setup()
+        # self.image_encoder: BaseImageEncoder = config.network.setup()
 
-        self.datamanager: LERFDataManager = config.datamanager.setup(
+        self.datamanager: MyMethodDataManager = config.datamanager.setup(
             device=device,
             test_mode=test_mode,
             world_size=world_size,
@@ -66,5 +73,5 @@ class MyMethodPipeline(VanillaPipeline):
 
         self.world_size = world_size
         if world_size > 1:
-            self._model = typing.cast(LERFModel, DDP(self._model, device_ids=[local_rank], find_unused_parameters=True))
+            self._model = typing.cast(MyMethodModel, DDP(self._model, device_ids=[local_rank], find_unused_parameters=True))
             dist.barrier(device_ids=[local_rank])

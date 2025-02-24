@@ -6,7 +6,7 @@ import numpy as np
 # import open_clip
 import torch
 from nerfstudio.cameras.rays import RayBundle, RaySamples
-from nerfstudio.data.scene_box import SceneBox
+# from nerfstudio.data.ExternalMethodDummyTrainerConfig import SceneBox
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.field_components.spatial_distortions import SceneContraction
 from nerfstudio.model_components.ray_samplers import PDFSampler
@@ -24,8 +24,7 @@ from torch.nn import Parameter
 
 @dataclass
 class MyMethodModelConfig(NerfactoModelConfig):
-    ...
-    # _target: Type = field(default_factory=lambda: MyMethodModel)
+    _target: Type = field(default_factory=lambda: MyMethodModel)
     # clip_loss_weight: float = 0.1
     # n_scales: int = 30
     # max_scale: float = 1.5
